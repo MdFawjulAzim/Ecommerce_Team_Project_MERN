@@ -82,3 +82,145 @@ Backend_PROJECT TODO......
     --Forgot Password
     --Reset Password
     --Refresh Token
+
+3.Model List
+=== User Model
+    --name
+    --email
+    --password
+    --Verify_otp
+    --verify_email(Boolean)
+    --forgot_password_otp
+    --refresh_token
+    --role(enum)
+    --status(enum)
+
+==== Profile Model
+    --userID(mongooseID)
+    --avatar
+
+    --cus_add
+    --cus_city
+    --cus_country
+    --cus_fax
+    --cus_name
+    --cus_phone
+    --cus_postcode
+    --cus_state
+
+    --ship_add
+    --ship_city
+    --ship_country
+    --ship_name
+    --ship_phone
+    --ship_postcode
+    --ship_state
+
+==== Brand Model
+    --brand Name
+    --brand Image 
+    --status
+==== Category Model
+    --Category Name
+    --Category Image 
+    --status
+==== Features Model
+    --name
+    --description
+    --image
+    --status
+
+==== Slider Model
+    --title
+    --description
+    --price
+    --Image
+
+    --productID:{mongoose}
+
+==== Product Model
+    --title
+    --shortDescription
+    --price
+    --discount:{Boolean}
+    --discountPrice
+    --image
+    --star
+    --stock(Boolean)
+    --remark
+
+    --categoryID:{mongoose}
+    --brandID:{mongoose}
+
+==== Product Details Model
+    --img1
+    --img2
+    --img3
+    --img4
+    --img5
+    --img6
+    --img7
+    --img8
+
+    --description
+    --color
+    --size
+
+    --productID:{mongoose}
+
+==== Wishlist Model
+    --productID:{mongoose}
+    --userID:{mongoose}
+==== Review Model
+    --productID:{mongoose}
+    --userID:{mongoose}
+
+    --description
+    --rating 
+
+==== Cart Model
+    --productID:{mongoose}
+    --userID:{mongoose}
+
+    --color
+    --qty
+    --size
+
+==== Invoice Model
+    --userID:{mongoose}
+
+    --payable:{type:String,required:true},
+    --cus_details
+    --ship_details
+    --tran_id
+    --val_id
+    --delivery_status
+    --payment_status
+    --total
+    --vat
+
+==== Invoice Product Model
+    --productID:{mongoose}
+    --userID:{mongoose}
+    --invoiceID:{mongoose}
+
+    --price
+    --color
+    --qty
+    --size
+
+==== payment setting Model
+    --store_id   
+    --store_passwd
+    --currency
+    --success_url
+    --fail_url
+    --cancel_url
+    --ipn_url
+    --init_url
+
+==== 
+
+
+
+
