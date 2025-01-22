@@ -17,4 +17,68 @@ Backend_PROJECT TODO......
     xss-clean(Cross-Site Scripting (XSS) আক্রমণ প্রতিরোধ করে।)
 
 
-2. 
+2. API LIST 
+
+
+==== User Management
+    --Register a User
+    --Login User
+    --Logout User
+    --Create User Profile
+    --Get User Profile
+    --Update User Profile
+==== Category Management
+    --Get All Categories
+    @@@if Working Admin@@
+    -- Create a Category (Admin)
+    -- Update a Category (Admin)
+    -- Delete a Category (Admin)
+==== Brand Management
+    --Get All Brands
+    @@@if Working Admin@@
+    -- Create a Brand (Admin)
+    -- Update a Brand (Admin)
+    -- Delete a Brand (Admin)
+==== Product Management
+    --Get All Products
+    --Get Product Details
+    @@@if Working Admin@@@
+    -- Create a Product (Admin)
+    -- Update a Product (Admin)
+    -- Delete a Product (Admin)
+==== Cart Management
+    --Add to Cart
+    --Get Cart Items
+    --Update Cart Item
+    --Remove from Cart
+==== Search Management
+    --Search by Brand
+    --Search by Categories
+    --Search by Keyword(name,others)
+==== Review Management
+    --Create Review
+    --Get Review
+==== Wishlist Management
+    --Add to Wishlist
+    --Get Wishlist
+    --Remove from Wishlist
+
+====Payment GetWay Management
+    --Create Invoice
+    --Get Invoice
+    --Get Invoice Product
+    --PaymentSuccess
+    --PaymentFail
+    --PaymentCancel
+    --PaymentIPN
+==== Order Management
+    --Create Order
+    --Get User Orders
+    --Get Single Order
+    @@if Working Admin@@
+    --Update Order Status (Admin)
+    --Delete an Order (Admin)
+==== Authentication and Security
+    --Forgot Password
+    --Reset Password
+    --Refresh Token
