@@ -1,5 +1,7 @@
 Backend_PROJECT TODO......
 
+npx mern-x@latest
+
 1.Packages 
     npm i express
     cookie-parser(কুকিজ সেট বা পড়া)
