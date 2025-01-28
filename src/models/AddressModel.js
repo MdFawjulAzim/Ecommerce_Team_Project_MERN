@@ -4,11 +4,12 @@ const AddressSchema = new mongoose.Schema(
   {
     userID: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
       required: true,
     },
-    avatar:{
-        type: String,
-        default: "",
+    avatar: {
+      type: String,
+      default: "",
     },
     cus_add: {
       type: String,

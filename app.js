@@ -7,7 +7,7 @@ import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import hpp from "hpp";
 import path from "path";
-import body_parser from 'body-parser';
+import body_parser from "body-parser";
 
 // Import Essential Filesystem
 import router from "./src/routes/api.js";
@@ -60,7 +60,7 @@ app.get("/", (request, response) => {
 });
 
 // Set API Routes
-app.use("/api/v1", router);  // Notice the change here
+app.use("/api/v1", router); // Notice the change here
 
 // Serve static files from the React app
 // app.use(express.static("client/dist"));
