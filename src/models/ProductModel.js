@@ -10,6 +10,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    SKU: {
+      type: String,
+      required: true,
+    },
     price: {
       type: Number,
       required: true,
@@ -30,9 +34,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    stock: {
-      type: Boolean,
-      required: true,
+    stock_status: {
+      type: String,
+      enum: ["INSTOCK", "OUTOFSTOCK"],
+      default: "INSTOCK",
     },
     remark: {
       type: String,

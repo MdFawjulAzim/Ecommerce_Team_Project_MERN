@@ -4,10 +4,30 @@ const DataSchema = mongoose.Schema(
   {
     userID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'user',
+      ref: "user",
       required: true,
     },
-    payable: {
+    tran_id: {
+      type: String,
+      required: true,
+    },
+    val_id: {
+      type: String,
+      required: true,
+    },
+    payable_amount: {
+      type: String,
+      required: true,
+    },
+    discount_amount: {
+      type: String,
+      default: "0",
+    },
+    vat: {
+      type: String,
+      required: true,
+    },
+    total: {
       type: String,
       required: true,
     },
@@ -19,29 +39,15 @@ const DataSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    tran_id: {
-      type: String,
-      required: true,
-    },
-    val_id: {
-      type: String,
-      required: true,
-    },
     delivery_status: {
       type: String,
-      required: true,
+      enum: ["PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"],
+      default: "PROCESSING",
     },
     payment_status: {
       type: String,
-      required: true,
-    },
-    total: {
-      type: String,
-      required: true,
-    },
-    vat: {
-      type: String,
-      required: true,
+      enum: ["PENDING", "PAID", "FAILED","CANCELLED"],
+      default: "PENDING",
     },
   },
   {

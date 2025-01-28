@@ -200,13 +200,14 @@ npx mern-x@latest
 ==== Invoice Model (done)
     --userID:{mongoose}
 
-    --payable:{type:String,required:true},
+    --payable_amount:{type:String,required:true},
+    --discount_amount
     --cus_details
     --ship_details
     --tran_id
     --val_id
-    --delivery_status
-    --payment_status
+    --delivery_status["PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"]
+    --payment_status["PENDING", "PAID", "FAILED"]
     --total
     --vat
 
