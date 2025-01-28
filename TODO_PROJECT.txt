@@ -226,6 +226,9 @@ npx mern-x@latest
 
 5. At first Create Model 
     -- UserModel.js
+    -- AddressModel.js
+    -- BrandModel.js
+    -- CategoryModel.js
     -- 
 
 
