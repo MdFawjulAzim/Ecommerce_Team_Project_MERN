@@ -132,7 +132,7 @@ npx mern-x@latest
     --image
     --status
 
-==== Slider Model
+==== Slider Model(model)
     --title
     --description
     --price
@@ -140,7 +140,15 @@ npx mern-x@latest
 
     --productID:{mongoose}
 
-==== Product Model
+==== subCategory Model(model)
+
+    --subCategory Name
+    --subCategory Image
+    --status
+
+    --category{mongoose}
+
+==== Product Model(model)
     --title
     --shortDescription
     --price
@@ -152,9 +160,10 @@ npx mern-x@latest
     --remark
 
     --categoryID:{mongoose}
+    --subCategoryID:{mongoose}
     --brandID:{mongoose}
 
-==== Product Details Model
+==== Product Details Model (model)
     --img1
     --img2
     --img3
@@ -170,17 +179,17 @@ npx mern-x@latest
 
     --productID:{mongoose}
 
-==== Wishlist Model
+==== Wishlist Model(done)
     --productID:{mongoose}
     --userID:{mongoose}
-==== Review Model
+==== Review Model(done)
     --productID:{mongoose}
     --userID:{mongoose}
 
     --description
     --rating 
 
-==== Cart Model
+==== Cart Model (done)
     --productID:{mongoose}
     --userID:{mongoose}
 
@@ -188,7 +197,7 @@ npx mern-x@latest
     --qty
     --size
 
-==== Invoice Model
+==== Invoice Model (done)
     --userID:{mongoose}
 
     --payable:{type:String,required:true},
@@ -201,7 +210,7 @@ npx mern-x@latest
     --total
     --vat
 
-==== Invoice Product Model
+==== Invoice Product Model (done)
     --productID:{mongoose}
     --userID:{mongoose}
     --invoiceID:{mongoose}
@@ -211,7 +220,7 @@ npx mern-x@latest
     --qty
     --size
 
-==== payment setting Model
+==== payment setting Model(done)
     --store_id   
     --store_passwd
     --currency
