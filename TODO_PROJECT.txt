@@ -86,7 +86,7 @@ npx mern-x@latest
     --Refresh Token
 -------------------------------------------------------------------------------------
 3.Model List
-=== User Model
+=== User Model(done)
     --name
     --email
     --password
@@ -97,7 +97,7 @@ npx mern-x@latest
     --role(enum)
     --status(enum)
 
-==== Profile Model
+==== Profile Model(done)
     --userID(mongooseID)
     --avatar
 
@@ -118,15 +118,15 @@ npx mern-x@latest
     --ship_postcode
     --ship_state
 
-==== Brand Model
+==== Brand Model(done)
     --brand Name
     --brand Image 
     --status
-==== Category Model
+==== Category Model(done)
     --Category Name
     --Category Image 
     --status
-==== Features Model
+==== Features Model(done)
     --name
     --description
     --image
@@ -229,6 +229,7 @@ npx mern-x@latest
     -- AddressModel.js
     -- BrandModel.js
     -- CategoryModel.js
+    -- FeaturesModel.js
     -- 
 
 

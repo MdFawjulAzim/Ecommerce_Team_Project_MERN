@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
 
-const CategorySchema = new mongoose.Schema({
-    categoryName:{
+const FeaturesSchema = new mongoose.Schema({
+    featuresName:{
         type:String,
         required:true,
         unique:true,
         default:""
     },
-    categoryImg:{
+    featuresDescription:{
+        type:String,
+        required:true,
+        default:""
+    },
+    featuresImg:{
         type:String,
         required:true,
         default:""
@@ -22,6 +27,6 @@ const CategorySchema = new mongoose.Schema({
     versionKey:false
 });
 
-const CategoryModel = mongoose.model('category',CategorySchema);
+const FeaturesModel = mongoose.model('features',FeaturesSchema);
 
-export default CategoryModel;
+export default FeaturesModel;
