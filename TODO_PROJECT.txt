@@ -97,7 +97,7 @@ npx mern-x@latest
     --role(enum)
     --status(enum)
 
-==== Profile Model(done)
+==== Address Model(done)
     --userID(mongooseID)
     --avatar
 
@@ -127,9 +127,9 @@ npx mern-x@latest
     --Category Image 
     --status
 ==== Features Model(done)
-    --name
-    --description
-    --image
+    --featuresName
+    --featuresDescription
+    --featuresImg
     --status
 
 ==== Slider Model(model)
@@ -200,17 +200,21 @@ npx mern-x@latest
 ==== Invoice Model (done)
     --userID:{mongoose}
 
-    --payable_amount:{type:String,required:true},
-    --discount_amount
-    --cus_details
-    --ship_details
     --tran_id
     --val_id
+    --payable_amount:{type:String,required:true},
+    --discount_amount
+    --vat
+    --total
+    --cus_details
+    --ship_details
     --delivery_status["PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"]
     --payment_status["PENDING", "PAID", "FAILED"]
-    --total
-    --vat
-
+==== Order Model (done)
+    --userID:{mongoose}
+    --ship_details
+    --delivery_status
+    --status_history
 ==== Invoice Product Model (done)
     --productID:{mongoose}
     --userID:{mongoose}
@@ -231,7 +235,22 @@ npx mern-x@latest
     --ipn_url
     --init_url
 
-==== 
+==== contact model Model(done)
+    --name
+    --email
+    --phone
+    --comment
+
+==== FAQModel Model (done)
+    --question
+    --answer
+    --category
+    --status
+
+==== LegalModel Model (done)
+    --type
+    --description
+    --status
 
 
 5. At first Create Model 
