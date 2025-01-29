@@ -5,6 +5,11 @@ import AuthMiddleware from "../middlewares/AuthVerification.js"; // Assuming you
 
 // User Registration
 userRouter.post("/registration", UserController.registration);
+// Verification Code Send
+userRouter.get("/send-verify-otp/:email", UserController.sendemailverifyotp);
+
+// Verification Email Code
+userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
 
 
 export default userRouter;
