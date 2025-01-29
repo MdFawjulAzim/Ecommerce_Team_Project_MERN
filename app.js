@@ -10,7 +10,7 @@ import path from "path";
 import body_parser from "body-parser";
 
 // Import Essential Filesystem
-import router from "./src/routes/api.js";
+import userRouter from "./src/routes/userRoute.js";
 import {
   MONGODB_CONNECTION,
   Max_JSON_SIZE,
@@ -52,15 +52,20 @@ app.set("etag", WEB_CACHE === "true");
 
 // MongoDB Connection
 
-app.get("/", (request, response) => {
+app.get("/", (req, res) => {
   // Server to client
-  response.json({
+  res.json({
     message: "Server is running on port " + PORT,
+  });
+});
+app.all("*", (req, res) => {
+  res.status(404).json({
+    message: "Route not found",
   });
 });
 
 // Set API Routes
-app.use("/api/v1", router); // Notice the change here
+app.use("/api/v1/user", userRouter);
 
 // Serve static files from the React app
 // app.use(express.static("client/dist"));
