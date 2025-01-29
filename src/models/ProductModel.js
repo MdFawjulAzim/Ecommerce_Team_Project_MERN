@@ -34,6 +34,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    stock: {
+      type: String,
+      required: true,
+    },
     stock_status: {
       type: String,
       enum: ["INSTOCK", "OUTOFSTOCK"],

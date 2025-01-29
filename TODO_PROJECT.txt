@@ -17,6 +17,8 @@ npx mern-x@latest
     nodemon( Node.js সার্ভার রান করার সময় স্বয়ংক্রিয়ভাবে রিস্টার্ট করে কোড পরিবর্তন হলে।)
     hpp(HTTP প্যারামিটার পলিউশন আক্রমণ প্রতিরোধ করে।)
     xss-clean(Cross-Site Scripting (XSS) আক্রমণ প্রতিরোধ করে।)
+    npm install bcrypt(পাসওয়ার্ড হ্যাশ করতে
+    body-parser(body er data dorte proyojon))
 
 
 2. API LIST 

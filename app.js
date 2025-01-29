@@ -10,6 +10,7 @@ import path from "path";
 import body_parser from "body-parser";
 
 // Import Essential Filesystem
+import insertdataRoute from "./src/routes/insertRoute.js";
 import userRouter from "./src/routes/userRoute.js";
 import {
   MONGODB_CONNECTION,
@@ -52,21 +53,25 @@ app.set("etag", WEB_CACHE === "true");
 
 // MongoDB Connection
 
+// Set API Routes
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/data/insert", insertdataRoute);
+
 app.get("/", (req, res) => {
   // Server to client
   res.json({
+    success: true,
+    error: false,
     message: "Server is running on port " + PORT,
   });
 });
 app.all("*", (req, res) => {
   res.status(404).json({
+    success: true,
+    error: false,
     message: "Route not found",
   });
 });
-
-// Set API Routes
-app.use("/api/v1/user", userRouter);
-
 // Serve static files from the React app
 // app.use(express.static("client/dist"));
 

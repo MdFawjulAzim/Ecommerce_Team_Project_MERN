@@ -7,10 +7,6 @@ const AddressSchema = new mongoose.Schema(
       ref: "user",
       required: true,
     },
-    avatar: {
-      type: String,
-      default: "",
-    },
     cus_add: {
       type: String,
       default: "",

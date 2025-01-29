@@ -15,8 +15,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+      default: "",
+    },
     verify_otp: {
-      type: Number,
+      type: String,
       default: "",
     },
     verify_email: {
