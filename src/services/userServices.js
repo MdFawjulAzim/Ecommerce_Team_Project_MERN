@@ -1,6 +1,7 @@
 import UserModel from "../models/UserModel.js";
 import bcryptjs from "bcryptjs";
 import EmailSend from "../utils/EmailHelper.js";
+import { EncodeAccessToken, EncodeRefreshToken } from "../utils/TokenHelper.js";
 
 export const registrationService = async (req) => {
   try {
@@ -139,6 +140,78 @@ export const verifyOTPService = async (req) => {
       success: true,
       error: false,
       message: "OTP verified successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const loginUserService = async (req) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "All fields are required",
+      };
+    }
+
+    let User = await UserModel.findOne({ email: email });
+    if (!User) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "User not found",
+      };
+    }
+    if (User.status !== "ACTIVE") {
+      return {
+        status: 403,
+        success: false,
+        error: true,
+        message: "User Account Is Not Active , Contact Admin",
+      };
+    }
+    let matchPassword = await bcryptjs.compare(password, User.password);
+
+    if (!matchPassword) {
+      return {
+        status: 401,
+        success: false,
+        error: true,
+        message: "Invalid Password",
+      };
+    }
+
+    const accessToken = await EncodeAccessToken(email, User._id);
+    const refreshToken = await EncodeRefreshToken(User._id);
+
+    if (!accessToken || !refreshToken) {
+      return {
+        status: 500,
+        success: false,
+        error: true,
+        message: "Failed to generate authentication tokens",
+      };
+    }
+
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "User logged in successfully",
+      token: {
+        accessToken,
+        refreshToken,
+      },
     };
   } catch (err) {
     return {

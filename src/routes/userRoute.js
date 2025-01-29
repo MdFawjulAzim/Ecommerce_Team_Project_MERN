@@ -10,6 +10,9 @@ userRouter.get("/send-verify-otp/:email", UserController.sendemailverifyotp);
 
 // Verification Email Code
 userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
-
+//user Login with token cookie
+userRouter.post("/login", UserController.loginUser);
+//user Logout Cookie deleted
+userRouter.get("/logout", AuthMiddleware, UserController.logoutUser);
 
 export default userRouter;
