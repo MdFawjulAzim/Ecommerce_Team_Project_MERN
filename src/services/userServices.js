@@ -191,8 +191,8 @@ export const loginUserService = async (req) => {
       };
     }
 
-    const accessToken = await EncodeAccessToken(email, User._id);
     const refreshToken = await EncodeRefreshToken(User._id);
+    const accessToken = EncodeAccessToken(email, User._id);
 
     if (!accessToken || !refreshToken) {
       return {

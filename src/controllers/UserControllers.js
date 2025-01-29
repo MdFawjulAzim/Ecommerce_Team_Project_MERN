@@ -44,8 +44,10 @@ export const loginUser = async (req, res) => {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 5), // 1 days
       httpOnly: true,
     };
-    res.cookie("accesstoken", result.token.accessToken, cookieOptions);
+
     res.cookie("refreshtoken", result.token.refreshToken, cookieOptions);
+    res.cookie("accesstoken", result.token.accessToken, cookieOptions);
+
     return res.status(result.status).json({
       success: result.success,
       error: result.error,
