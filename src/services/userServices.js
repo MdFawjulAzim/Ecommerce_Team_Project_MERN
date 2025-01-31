@@ -286,8 +286,6 @@ export const uploadCloudinaryAvatarService = async (req) => {
     const updateUser = await UserModel.findByIdAndUpdate(userId, {
       avatar: upload.url,
     });
-
-    console.log(updateUser);
     return {
       status: 200,
       success: true,
