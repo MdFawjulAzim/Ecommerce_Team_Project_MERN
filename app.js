@@ -65,6 +65,7 @@ app.get("/", (req, res) => {
     message: "Server is running on port " + PORT,
   });
 });
+app.use("/uploads-file", express.static("uploads"));
 app.all("*", (req, res) => {
   res.status(404).json({
     success: true,

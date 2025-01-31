@@ -3,6 +3,7 @@ import {
   loginUserService,
   registrationService,
   sendEmailVerifyOTP,
+  uploadMulterAvatarService,
   verifyOTPService,
 } from "../services/userServices.js";
 
@@ -67,7 +68,7 @@ export const loginUser = async (req, res) => {
 //User Logout
 export const logoutUser = async (req, res) => {
   try {
-    const userId = req.headers.user_id;
+    const userId = req.headers.user_id; // Auth Middleware
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -99,4 +100,14 @@ export const logoutUser = async (req, res) => {
       message: "Internal Server Error" + " " + err.toString(),
     });
   }
+};
+
+// Use Multer File Upload Controller 
+export const uploadMulterAvatar = async (req, res) => {
+  let result = await uploadMulterAvatarService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
 };

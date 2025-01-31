@@ -222,3 +222,37 @@ export const loginUserService = async (req) => {
     };
   }
 };
+
+export const uploadMulterAvatarService = async (req) => {
+  try {
+    const userId = req.headers.user_id; // Auth Middleware
+    const avatar = req.file; // multer Middleware
+    if (!avatar) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "No avatar provided",
+      };
+    }
+
+    const fileName = avatar.filename;
+
+    const updateUser = await UserModel.findByIdAndUpdate(userId, {
+      avatar: fileName,
+    });
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "User Avatar uploaded successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
