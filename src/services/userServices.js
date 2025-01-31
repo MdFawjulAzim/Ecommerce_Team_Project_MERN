@@ -173,6 +173,14 @@ export const loginUserService = async (req) => {
         message: "User not found",
       };
     }
+    if (User.verify_email !== true) {
+      return {
+        status: 403,
+        success: false,
+        error: true,
+        message: "Email Not Verified, Please Verify Your Email First",
+      };
+    }
     if (User.status !== "ACTIVE") {
       return {
         status: 403,
