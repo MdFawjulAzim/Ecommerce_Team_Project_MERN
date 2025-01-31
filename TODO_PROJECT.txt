@@ -19,8 +19,15 @@ npx mern-x@latest
     xss-clean(Cross-Site Scripting (XSS) আক্রমণ প্রতিরোধ করে।)
     npm install bcrypt(পাসওয়ার্ড হ্যাশ করতে
     body-parser(body er data dorte proyojon))
+    npm install cloudinary(file upload er jonne)
 
+----------------যদি কখনো .env file রিপোজেটরিতে নাহ দিতে চাই তাহলে ---------------- 
+git rm --cached .env
 
+git commit -m "Removed .env from repository"
+git push origin main
+
+------------------------------------------------------------------------------------
 2. API LIST 
 
 

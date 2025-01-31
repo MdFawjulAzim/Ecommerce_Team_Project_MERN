@@ -2,6 +2,7 @@ import UserModel from "../models/UserModel.js";
 import bcryptjs from "bcryptjs";
 import EmailSend from "../utils/EmailHelper.js";
 import { EncodeAccessToken, EncodeRefreshToken } from "../utils/TokenHelper.js";
+import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
 
 export const registrationService = async (req) => {
   try {
@@ -241,6 +242,44 @@ export const uploadMulterAvatarService = async (req) => {
     const updateUser = await UserModel.findByIdAndUpdate(userId, {
       avatar: fileName,
     });
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "User Avatar uploaded successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const uploadCloudinaryAvatarService = async (req) => {
+  try {
+    const userId = req.headers.user_id; // Auth Middleware
+    const avatar = req.file; // CloudinaryMulter Middleware
+
+    const file = avatar.fieldname;
+
+    if (!avatar) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "No avatar provided",
+      };
+    }
+    const upload = await cloudinaryFileUpload(avatar, file);
+
+    const updateUser = await UserModel.findByIdAndUpdate(userId, {
+      avatar: upload.url,
+    });
+
+    console.log(updateUser);
     return {
       status: 200,
       success: true,

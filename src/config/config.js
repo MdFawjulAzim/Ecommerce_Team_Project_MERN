@@ -18,6 +18,11 @@ export const EMAIL_USER = process.env.EMAIL_USER;
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 export const MAIL_ENCRYPTION = process.env.MAIL_ENCRYPTION;
 
+//  Cloudinary file 
+export const CLOUDINARY_CLOUD_NAME =process.env.CLOUDINARY_CLOUD_NAME;
+export const CLOUDINARY_API_KEY =process.env.CLOUDINARY_API_KEY;
+export const CLOUDINARY_API_SECRET_KEY =process.env.CLOUDINARY_API_SECRET_KEY;
+
 export const Max_JSON_SIZE = process.env.Max_JSON_SIZE;
 export const URL_ENCODER = process.env.URL_ENCODER;
 

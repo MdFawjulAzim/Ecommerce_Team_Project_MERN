@@ -3,6 +3,7 @@ import {
   loginUserService,
   registrationService,
   sendEmailVerifyOTP,
+  uploadCloudinaryAvatarService,
   uploadMulterAvatarService,
   verifyOTPService,
 } from "../services/userServices.js";
@@ -105,6 +106,16 @@ export const logoutUser = async (req, res) => {
 // Use Multer File Upload Controller 
 export const uploadMulterAvatar = async (req, res) => {
   let result = await uploadMulterAvatarService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// Use Cloudinary File Upload Controller 
+export const uploadCloudinaryAvatar = async (req, res) => {
+  let result = await uploadCloudinaryAvatarService(req);
   return res.status(result.status).json({
     success: result.success,
     error: result.error,

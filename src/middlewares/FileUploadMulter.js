@@ -12,7 +12,7 @@ const createFolderIfNotExists = (folderPath) => {
 const upload = (folderName) => {
   const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
-      const folderPath = `uploads/${folderName}/`;
+      const folderPath = `uploads/${folderName}`;
       createFolderIfNotExists(folderPath);
       cb(null, folderPath);
     },
@@ -30,6 +30,5 @@ const upload = (folderName) => {
   });
   return multer({ storage: fileStorageEngine });
 };
-
 
 export default upload;
