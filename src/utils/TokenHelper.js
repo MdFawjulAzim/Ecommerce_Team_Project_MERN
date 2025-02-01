@@ -32,7 +32,7 @@ export const DecodeAccessToken = (token) => {
 export const EncodeRefreshToken = async (userID) => {
   const KEY = JWT_SECRET_REFRESH_TOKEN;
   const EXPIRE = { expiresIn: JWT_EXPIRATION_TIME_REFRESH_TOKEN };
-  const PAYLOAD = { id: userID };
+  const PAYLOAD = { _id: userID };
   const token = jwt.sign(PAYLOAD, KEY, EXPIRE);
 
   const updateRefreshTokenUser = await UserModel.findOneAndUpdate(

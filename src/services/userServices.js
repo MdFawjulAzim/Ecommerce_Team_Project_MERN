@@ -1,7 +1,11 @@
 import UserModel from "../models/UserModel.js";
 import bcryptjs from "bcryptjs";
 import EmailSend from "../utils/EmailHelper.js";
-import { EncodeAccessToken, EncodeRefreshToken } from "../utils/TokenHelper.js";
+import {
+  DecodeRefreshToken,
+  EncodeAccessToken,
+  EncodeRefreshToken,
+} from "../utils/TokenHelper.js";
 import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
 import GenerateOTP from "./../utils/GenerateOTP.js";
 
@@ -460,6 +464,51 @@ export const uploadCloudinaryAvatarService = async (req) => {
       success: true,
       error: false,
       message: "User Avatar uploaded successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const updateRefreshTokenService = async (req) => {
+  try {
+    const refreshToken =
+      req.cookies.refreshtoken || req?.headers?.authorization?.split(" ")[1]; /// [ Bearer token]
+
+    if (!refreshToken) {
+      return {
+        status: 401,
+        success: false,
+        error: true,
+        message: "No refresh token provided",
+      };
+    }
+
+    const verifyToken = DecodeRefreshToken(refreshToken);
+
+    if (!verifyToken) {
+      return {
+        status: 401,
+        success: false,
+        error: true,
+        message: "Invalid refresh token",
+      };
+    }
+
+    const userId = verifyToken._id;
+    const refreshTokens = await EncodeRefreshToken(userId);
+
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Refresh Token Updated Successfully",
+      token: refreshTokens,
     };
   } catch (err) {
     return {

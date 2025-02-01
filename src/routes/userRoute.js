@@ -16,6 +16,9 @@ userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
 userRouter.post("/login", UserController.loginUser);
 //user Logout Cookie deleted
 userRouter.get("/logout", AuthMiddleware, UserController.logoutUser);
+//user Refresh Token Generated Refresh token
+userRouter.get("/refresh-token", AuthMiddleware, UserController.updateRefreshToken);
+
 //user forgot password
 userRouter.post("/forgot-password",UserController.forgotPasswordOTPSend);
 //user forgot OTP Verify

@@ -6,6 +6,7 @@ import {
   registrationService,
   resetPasswordService,
   sendEmailVerifyOTP,
+  updateRefreshTokenService,
   uploadCloudinaryAvatarService,
   uploadMulterAvatarService,
   verifyOTPService,
@@ -154,4 +155,30 @@ export const uploadCloudinaryAvatar = async (req, res) => {
     error: result.error,
     message: result.message,
   });
+};
+
+//expire Refresh Token Create
+export const updateRefreshToken = async (req, res) => {
+  let result = await updateRefreshTokenService(req);
+  if (result.status === 200) {
+    let cookieOptions = {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 5), // 1 days
+      httpOnly: true,
+    };
+
+    res.cookie("refreshtoken", result.token.refreshToken, cookieOptions);
+
+    return res.status(result.status).json({
+      success: result.success,
+      error: result.error,
+      message: result.message,
+      refreshtoken: result.token,
+    });
+  } else {
+    return res.status(result.status).json({
+      success: result.success,
+      error: result.error,
+      message: result.message,
+    });
+  }
 };
