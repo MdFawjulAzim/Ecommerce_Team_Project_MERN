@@ -7,17 +7,21 @@ import cloudUpload from "../middlewares/CloudMulter.js";
 
 // User Registration
 userRouter.post("/registration", UserController.registration);
-// Verification Code Send
-userRouter.get("/send-verify-otp/:email", UserController.sendEmailVerifyOTP);
-
-// Verification Email Code
-userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
 //user Login with token cookie
 userRouter.post("/login", UserController.loginUser);
 //user Logout Cookie deleted
 userRouter.get("/logout", AuthMiddleware, UserController.logoutUser);
+
+
+// Verification Code Send
+userRouter.get("/send-verify-otp/:email", UserController.sendEmailVerifyOTP);
+// Verification Email Code
+userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
+
+
 //user Refresh Token Generated Refresh token
 userRouter.get("/refresh-token", AuthMiddleware, UserController.updateRefreshToken);
+
 
 //user forgot password
 userRouter.post("/forgot-password",UserController.forgotPasswordOTPSend);
@@ -25,6 +29,16 @@ userRouter.post("/forgot-password",UserController.forgotPasswordOTPSend);
 userRouter.get("/verify-forgot-password-otp/:email/:otp", UserController.forgotPasswordOTPVerify);
 //Reset password
 userRouter.post('/reset-password',UserController.resetPassword);
+
+
+//User Create Profile
+userRouter.post('/create-profile',AuthMiddleware,UserController.CreateProfile);
+//User Update Profile
+userRouter.post('/update-profile',AuthMiddleware,UserController.UpdateProfile);
+//User Read Profile
+userRouter.get('/read-profile',AuthMiddleware,UserController.ReadProfile);
+
+
 // Upload a Avatar (PHOTO MULTER Upload)
 userRouter.post(
   "/upload-multer-avatar",

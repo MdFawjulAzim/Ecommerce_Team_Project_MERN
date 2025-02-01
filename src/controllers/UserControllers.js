@@ -1,11 +1,14 @@
 import UserModel from "../models/UserModel.js";
 import {
+  CreateProfileService,
   forgotPasswordOTPSendService,
   forgotPasswordOTPVerifyService,
   loginUserService,
+  ReadProfileService,
   registrationService,
   resetPasswordService,
   sendEmailVerifyOTPService,
+  UpdateProfileService,
   updateRefreshTokenService,
   uploadCloudinaryAvatarService,
   uploadMulterAvatarService,
@@ -181,4 +184,34 @@ export const updateRefreshToken = async (req, res) => {
       message: result.message,
     });
   }
+};
+
+// Use Create Profile 
+export const CreateProfile = async (req, res) => {
+  let result = await CreateProfileService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// Use Update Profile 
+export const UpdateProfile = async (req, res) => {
+  let result = await UpdateProfileService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// Use Read Profile 
+export const ReadProfile = async (req, res) => {
+  let result = await ReadProfileService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
 };

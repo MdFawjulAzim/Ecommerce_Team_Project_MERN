@@ -519,3 +519,57 @@ export const updateRefreshTokenService = async (req) => {
     };
   }
 };
+
+export const CreateProfileService = async (req) => {
+  try {
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Profile created successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const UpdateProfileService = async (req) => {
+  try {
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Profile updated successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const ReadProfileService = async (req) => {
+  try {
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Profile read successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
