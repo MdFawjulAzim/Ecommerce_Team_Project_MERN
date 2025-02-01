@@ -8,7 +8,7 @@ import cloudUpload from "../middlewares/CloudMulter.js";
 // User Registration
 userRouter.post("/registration", UserController.registration);
 // Verification Code Send
-userRouter.get("/send-verify-otp/:email", UserController.sendemailverifyotp);
+userRouter.get("/send-verify-otp/:email", UserController.sendEmailVerifyOTP);
 
 // Verification Email Code
 userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);

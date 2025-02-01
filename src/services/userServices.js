@@ -72,7 +72,7 @@ export const registrationService = async (req) => {
   }
 };
 
-export const sendEmailVerifyOTP = async (req) => {
+export const sendEmailVerifyOTPService = async (req) => {
   try {
     const { email } = req.params;
     let verify_otp_random = GenerateOTP(); // Generates a 6-digit random number

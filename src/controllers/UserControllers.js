@@ -5,7 +5,7 @@ import {
   loginUserService,
   registrationService,
   resetPasswordService,
-  sendEmailVerifyOTP,
+  sendEmailVerifyOTPService,
   updateRefreshTokenService,
   uploadCloudinaryAvatarService,
   uploadMulterAvatarService,
@@ -22,8 +22,8 @@ export const registration = async (req, res) => {
 };
 
 //Email verification code Send
-export const sendemailverifyotp = async (req, res) => {
-  let result = await sendEmailVerifyOTP(req);
+export const sendEmailVerifyOTP = async (req, res) => {
+  let result = await sendEmailVerifyOTPService(req);
   return res.status(result.status).json({
     success: result.success,
     error: result.error,
