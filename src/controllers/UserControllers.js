@@ -1,7 +1,10 @@
 import UserModel from "../models/UserModel.js";
 import {
+  forgotPasswordOTPSendService,
+  forgotPasswordOTPVerifyService,
   loginUserService,
   registrationService,
+  resetPasswordService,
   sendEmailVerifyOTP,
   uploadCloudinaryAvatarService,
   uploadMulterAvatarService,
@@ -103,7 +106,37 @@ export const logoutUser = async (req, res) => {
   }
 };
 
-// Use Multer File Upload Controller 
+// User forgot Password
+export const forgotPasswordOTPSend = async (req, res) => {
+  let result = await forgotPasswordOTPSendService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// User forgot Password verify Otp
+export const forgotPasswordOTPVerify = async (req, res) => {
+  let result = await forgotPasswordOTPVerifyService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// User reset Password verify Otp
+export const resetPassword = async (req, res) => {
+  let result = await resetPasswordService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+  });
+};
+
+// Use Multer File Upload Controller
 export const uploadMulterAvatar = async (req, res) => {
   let result = await uploadMulterAvatarService(req);
   return res.status(result.status).json({
@@ -113,7 +146,7 @@ export const uploadMulterAvatar = async (req, res) => {
   });
 };
 
-// Use Cloudinary File Upload Controller 
+// Use Cloudinary File Upload Controller
 export const uploadCloudinaryAvatar = async (req, res) => {
   let result = await uploadCloudinaryAvatarService(req);
   return res.status(result.status).json({

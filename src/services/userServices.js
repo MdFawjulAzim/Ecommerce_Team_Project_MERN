@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import EmailSend from "../utils/EmailHelper.js";
 import { EncodeAccessToken, EncodeRefreshToken } from "../utils/TokenHelper.js";
 import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
+import GenerateOTP from "./../utils/GenerateOTP.js";
 
 export const registrationService = async (req) => {
   try {
@@ -31,10 +32,8 @@ export const registrationService = async (req) => {
     const salt = await bcryptjs.genSalt(10);
     const hashpassword = await bcryptjs.hash(password, salt);
 
-    let verify_otp_random = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
-    let forgot_password_otp_random = Math.floor(
-      100000 + Math.random() * 900000
-    ); // Generates a 6-digit random number
+    let verify_otp_random = GenerateOTP(); // Generates a 6-digit random number
+    let forgot_password_otp_random = GenerateOTP(); // Generates a 6-digit random number
 
     const payload = {
       name,
@@ -72,7 +71,7 @@ export const registrationService = async (req) => {
 export const sendEmailVerifyOTP = async (req) => {
   try {
     const { email } = req.params;
-    let verify_otp_random = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
+    let verify_otp_random = GenerateOTP(); // Generates a 6-digit random number
     let user = await UserModel.findOneAndUpdate(
       { email },
       { verify_otp: verify_otp_random },
@@ -130,7 +129,7 @@ export const verifyOTPService = async (req) => {
         message: "Incorrect OTP",
       };
     }
-    let verify_otp_random = Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
+    let verify_otp_random = GenerateOTP(); // Generates a 6-digit random number
     let updateUser = await UserModel.findOneAndUpdate(
       { email },
       { verify_otp: verify_otp_random, verify_email: true },
@@ -232,6 +231,176 @@ export const loginUserService = async (req) => {
   }
 };
 
+export const forgotPasswordOTPSendService = async (req) => {
+  try {
+    const { email } = req.body;
+
+    const user = await UserModel.findOne({ email: email });
+    if (!user) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "User not found",
+      };
+    }
+
+    const forgot_password_otp_random = GenerateOTP();
+    const expireTime = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour time
+
+    const update = await UserModel.findOneAndUpdate(
+      { email: email },
+      {
+        forgot_password_otp: forgot_password_otp_random,
+        forgot_password_expiry: expireTime,
+      },
+      { new: true }
+    );
+
+    // Send email verification link
+    let EmailTo = email;
+    let EmailText = `Your Verification Code is ${update.forgot_password_otp}`;
+    let EmailSubject = "Task Manager Verification Code";
+    let sendemail = await EmailSend(EmailTo, EmailText, EmailSubject);
+
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Forgot Password OTP sent successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const forgotPasswordOTPVerifyService = async (req) => {
+  try {
+    const email = req.params.email;
+    const otp = req.params.otp;
+
+    if (!email || !otp) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "All fields are required",
+      };
+    }
+
+    const user = await UserModel.findOne({
+      email: email,
+      forgot_password_otp: otp,
+    });
+    if (!user) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "User not found",
+      };
+    }
+
+    const currentTime = new Date().toISOString();
+
+    if (user.forgot_password_expiry < currentTime) {
+      return {
+        status: 403,
+        success: false,
+        error: true,
+        message: "OTP Expired",
+      };
+    }
+    if (user.forgot_password_otp !== otp) {
+      return {
+        status: 403,
+        success: false,
+        error: true,
+        message: "Incorrect OTP",
+      };
+    }
+
+    const forgot_password_otp_random = GenerateOTP();
+
+    const updateUser = await UserModel.findOneAndUpdate(
+      { email: email },
+      {
+        forgot_password_otp: forgot_password_otp_random,
+        forgot_password_expiry: "",
+      },
+      { new: true }
+    );
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "OTP verified successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const resetPasswordService = async (req) => {
+  try {
+    const { email, newPassword, confirmPassword } = req.body;
+    if (!email || !newPassword || !confirmPassword) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "All fields are required",
+      };
+    }
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "Email is not available",
+      };
+    }
+
+    if (newPassword !== confirmPassword) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "Passwords do not match",
+      };
+    }
+    const salt = await bcryptjs.genSalt(10);
+    const hashPassword = await bcryptjs.hash(newPassword, salt);
+    const update = await UserModel.findOneAndUpdate(user._id, {
+      password: hashPassword,
+    });
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Password Update successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
 export const uploadMulterAvatarService = async (req) => {
   try {
     const userId = req.headers.user_id; // Auth Middleware

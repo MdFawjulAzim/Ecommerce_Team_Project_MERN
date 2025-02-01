@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    forgot_password_expiry:{
+      type: Date,
+      default: "",
+    },
     refresh_token: {
       type: String,
       default: "",

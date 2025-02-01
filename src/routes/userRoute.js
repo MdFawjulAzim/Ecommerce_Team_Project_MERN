@@ -16,11 +16,26 @@ userRouter.get("/verify-otp/:email/:otp", UserController.verificationOTP);
 userRouter.post("/login", UserController.loginUser);
 //user Logout Cookie deleted
 userRouter.get("/logout", AuthMiddleware, UserController.logoutUser);
+//user forgot password
+userRouter.post("/forgot-password",UserController.forgotPasswordOTPSend);
+//user forgot OTP Verify
+userRouter.get("/verify-forgot-password-otp/:email/:otp", UserController.forgotPasswordOTPVerify);
+//Reset password
+userRouter.post('/reset-password',UserController.resetPassword);
 // Upload a Avatar (PHOTO MULTER Upload)
-userRouter.post('/upload-multer-avatar',AuthMiddleware,upload("avatar").single("avatar"),UserController.uploadMulterAvatar);
+userRouter.post(
+  "/upload-multer-avatar",
+  AuthMiddleware,
+  upload("avatar").single("avatar"),
+  UserController.uploadMulterAvatar
+);
 
 // Upload a Avatar (PHOTO Cloudinary Upload)
-userRouter.post('/upload-cloudinary-avatar',AuthMiddleware,cloudUpload.single("avatar"),UserController.uploadCloudinaryAvatar);
-
+userRouter.post(
+  "/upload-cloudinary-avatar",
+  AuthMiddleware,
+  cloudUpload.single("avatar"),
+  UserController.uploadCloudinaryAvatar
+);
 
 export default userRouter;
