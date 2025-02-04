@@ -8,6 +8,7 @@ import {
 } from "../utils/TokenHelper.js";
 import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
 import GenerateOTP from "./../utils/GenerateOTP.js";
+import uploadCloudinary from "../utils/CloudUpload.js";
 
 export const registrationService = async (req) => {
   try {
@@ -495,6 +496,39 @@ export const uploadCloudinaryAvatarService = async (req) => {
       success: true,
       error: false,
       message: "User Avatar uploaded successfully",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
+export const uploadCloudinaryService = async (req) => {
+  try {
+    if (!req.file) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "No file provided",
+      };
+    }
+    const upload = await uploadCloudinary(req.file);
+
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "Image uploaded successfully",
+      data: {
+        secure_url: upload.secure_url,
+        url: upload.url,
+        filename: req.file.originalname,
+      },
     };
   } catch (err) {
     return {

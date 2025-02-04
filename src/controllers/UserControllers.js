@@ -12,6 +12,7 @@ import {
   UpdateProfileService,
   updateRefreshTokenService,
   uploadCloudinaryAvatarService,
+  uploadCloudinaryService,
   uploadMulterAvatarService,
   verifyOTPService,
 } from "../services/userServices.js";
@@ -150,7 +151,7 @@ export const uploadMulterAvatar = async (req, res) => {
     message: result.message,
   });
 };
-// Use Multer File Upload Controller
+// Use Multer Random File Upload Controller
 export const randomFileUploadController = async (req, res) => {
   let result = await randomFileUploadService(req);
   return res.status(result.status).json({
@@ -167,6 +168,17 @@ export const uploadCloudinaryAvatar = async (req, res) => {
     success: result.success,
     error: result.error,
     message: result.message,
+  });
+};
+
+// Use Cloudinary Random File Upload Controller
+export const uploadCloudinary = async (req, res) => {
+  let result = await uploadCloudinaryService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+    data: result.data,
   });
 };
 
