@@ -439,6 +439,37 @@ export const uploadMulterAvatarService = async (req) => {
   }
 };
 
+export const randomFileUploadService = async (req, res) => {
+  try {
+    if (!req.file) {
+      return {
+        status: 400,
+        success: false,
+        error: true,
+        message: "No file provided",
+      };
+    }
+    const url = req.file.destination + req.file.filename;
+    return {
+      status: 200,
+      success: true,
+      error: false,
+      message: "File uploaded successfully",
+      data: {
+        url: url,
+        filename: req.file.originalname,
+      },
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      success: false,
+      error: true,
+      message: err.message || "Something went wrong",
+    };
+  }
+};
+
 export const uploadCloudinaryAvatarService = async (req) => {
   try {
     const userId = req.headers.user_id; // Auth Middleware

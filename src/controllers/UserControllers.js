@@ -4,6 +4,7 @@ import {
   forgotPasswordOTPSendService,
   forgotPasswordOTPVerifyService,
   loginUserService,
+  randomFileUploadService,
   ReadProfileService,
   registrationService,
   resetPasswordService,
@@ -149,7 +150,16 @@ export const uploadMulterAvatar = async (req, res) => {
     message: result.message,
   });
 };
-
+// Use Multer File Upload Controller
+export const randomFileUploadController = async (req, res) => {
+  let result = await randomFileUploadService(req);
+  return res.status(result.status).json({
+    success: result.success,
+    error: result.error,
+    message: result.message,
+    data:result.data
+  });
+};
 // Use Cloudinary File Upload Controller
 export const uploadCloudinaryAvatar = async (req, res) => {
   let result = await uploadCloudinaryAvatarService(req);

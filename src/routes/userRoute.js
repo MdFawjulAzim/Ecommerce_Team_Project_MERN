@@ -4,6 +4,7 @@ import * as UserController from "../controllers/UserControllers.js"; // Assuming
 import AuthMiddleware from "../middlewares/AuthVerification.js"; // Assuming you have your auth middleware
 import upload from "../middlewares/FileUploadMulter.js";
 import cloudUpload from "../middlewares/CloudMulter.js";
+import uploads from "../middlewares/RandomfileUpload.js";
 
 // User Registration
 userRouter.post("/registration", UserController.registration);
@@ -54,5 +55,8 @@ userRouter.post(
   cloudUpload.single("avatar"),
   UserController.uploadCloudinaryAvatar
 );
+
+// File upload endpoint
+userRouter.post("/upload", uploads.single("file"),UserController.randomFileUploadController);
 
 export default userRouter;
