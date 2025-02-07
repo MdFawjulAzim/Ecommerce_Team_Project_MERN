@@ -236,5 +236,6 @@ export const ReadProfile = async (req, res) => {
     success: result.success,
     error: result.error,
     message: result.message,
+    data: result.data,
   });
 };

@@ -10,6 +10,7 @@ import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
 import GenerateOTP from "./../utils/GenerateOTP.js";
 import uploadCloudinary from "../utils/CloudUpload.js";
 import AddressModel from "../models/AddressModel.js";
+import mongoose from "mongoose";
 
 export const registrationService = async (req) => {
   try {
@@ -660,11 +661,36 @@ export const UpdateProfileService = async (req) => {
 
 export const ReadProfileService = async (req) => {
   try {
+    const userId = req.headers.user_id; // Auth Middleware
+
+    // User Data Fetch (Exclude Sensitive Fields)
+    const user = await UserModel.findById(userId).select(
+      "-password -verify_otp -verify_email -forgot_password_otp -refresh_token -role -status -forgot_password_expiry"
+    );
+
+    // Profile (Address) Data Fetch
+    const profile = await AddressModel.findOne({
+      userID: new mongoose.Types.ObjectId(userId),
+    });
+
+    if (!user) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "User not found",
+      };
+    }
+
     return {
       status: 200,
       success: true,
       error: false,
       message: "Profile read successfully",
+      data: {
+        user,
+        profile: profile || {}, // Jodi profile na thake, empty object return korbe
+      },
     };
   } catch (err) {
     return {
