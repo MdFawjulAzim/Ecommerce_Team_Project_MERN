@@ -15,10 +15,6 @@ const AddressSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    cus_city: {
-      type: String,
-      default: "",
-    },
     cus_country: {
       type: String,
       default: "",

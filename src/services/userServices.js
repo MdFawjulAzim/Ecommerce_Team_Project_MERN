@@ -9,6 +9,7 @@ import {
 import cloudinaryFileUpload from "../utils/CloudUploadFile.js";
 import GenerateOTP from "./../utils/GenerateOTP.js";
 import uploadCloudinary from "../utils/CloudUpload.js";
+import AddressModel from "../models/AddressModel.js";
 
 export const registrationService = async (req) => {
   try {
@@ -587,6 +588,14 @@ export const updateRefreshTokenService = async (req) => {
 
 export const CreateProfileService = async (req) => {
   try {
+    const userId = req.headers.user_id; // Auth Middleware
+    const reqBody = req.body;
+    reqBody.userID = userId;
+    await AddressModel.updateOne(
+      { userID: userId },
+      { $set: reqBody },
+      { upsert: true }
+    );
     return {
       status: 200,
       success: true,
@@ -605,11 +614,39 @@ export const CreateProfileService = async (req) => {
 
 export const UpdateProfileService = async (req) => {
   try {
+    const userId = req.headers.user_id; // Auth Middleware
+    const { name, email, avatar } = req.body;
+
+    // User Exist Check
+    const userExists = await UserModel.findById(userId);
+    if (!userExists) {
+      return {
+        status: 404,
+        success: false,
+        error: true,
+        message: "User not found",
+      };
+    }
+
+    // Prepare Update Payload
+    const updateFields = {};
+    if (email) updateFields.email = email;
+    if (name) updateFields.name = name;
+    if (avatar) updateFields.avatar = avatar;
+
+    // Update User Profile
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      updateFields,
+      { new: true }
+    );
+
     return {
       status: 200,
       success: true,
       error: false,
       message: "Profile updated successfully",
+      data: updatedUser,
     };
   } catch (err) {
     return {

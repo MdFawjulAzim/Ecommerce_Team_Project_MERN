@@ -158,7 +158,7 @@ export const randomFileUploadController = async (req, res) => {
     success: result.success,
     error: result.error,
     message: result.message,
-    data:result.data
+    data: result.data,
   });
 };
 // Use Cloudinary File Upload Controller
@@ -208,7 +208,7 @@ export const updateRefreshToken = async (req, res) => {
   }
 };
 
-// Use Create Profile 
+// Use Create Profile
 export const CreateProfile = async (req, res) => {
   let result = await CreateProfileService(req);
   return res.status(result.status).json({
@@ -218,17 +218,18 @@ export const CreateProfile = async (req, res) => {
   });
 };
 
-// Use Update Profile 
+// Use Update Profile
 export const UpdateProfile = async (req, res) => {
   let result = await UpdateProfileService(req);
   return res.status(result.status).json({
     success: result.success,
     error: result.error,
     message: result.message,
+    data: result.data,
   });
 };
 
-// Use Read Profile 
+// Use Read Profile
 export const ReadProfile = async (req, res) => {
   let result = await ReadProfileService(req);
   return res.status(result.status).json({
